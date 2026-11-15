@@ -1,0 +1,139 @@
+:root {
+  --blue: #0b5d9b;
+  --yellow: #f7d618;
+  --red: #ce1021;
+  --green: #1b7a3d;
+  --text: #14202e;
+  --grey: #5a6878;
+  --line: #d6dee7;
+  --background: #f4f7fa;
+}
+ 
+/* ---------- 2. Regles generales ---------- */
+* { box-sizing: border-box; }            /* les tailles incluent les marges internes */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background: var(--background);
+  line-height: 1.5;
+}
+.container { max-width: 800px; margin: 0 auto; padding: 0 16px; }
+.hidden { display: none; }               /* classe pour cacher un element */
+ 
+/* ---------- 3. En-tete : bande bleue avec bande rouge/jaune (drapeau RDC) ---------- */
+.site-header {
+  color: white;
+  padding: 16px 0;
+  background: linear-gradient(112deg,
+    var(--blue) 0 66%, var(--yellow) 66% 69%,
+    var(--red) 69% 87%, var(--yellow) 87% 90%, var(--blue) 90%);
+}
+.header-inner { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.logo { display: block; font-size: 26px; }
+ 
+/* Logo : un tout petit cercle, a gauche du nom */
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand .logo-img {
+  width: 80px;                 /* taille du cercle : changez 32px pour agrandir ou reduire */
+  height: 80px;
+  max-width: 80px;             /* securite : meme un tres grand fichier ne depassera pas */
+  max-height: 80px;
+  flex-shrink: 0;              /* empeche le logo d'etre ecrase ou etire */
+  object-fit: cover;           /* l'image remplit tout le cercle, sans deformation */
+  border-radius: 50%;          /* 50% = cercle parfait */
+  border: 2px solid white;     /* petit contour blanc pour bien le voir sur le bleu */
+}
+ 
+/* ---------- 4. Cartes (les boites blanches de chaque etape) ---------- */
+main { padding-top: 16px; padding-bottom: 40px; }
+.card {
+  background: rgb(246, 246, 248);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px;
+}
+.notice { background: #fff8d6; border-radius: 6px; padding: 8px 12px; font-size: 14px; }
+ 
+/* ---------- 5. Barre de progression ---------- */
+.progress { display: flex; list-style: none; padding: 0; margin: 0 0 16px; gap: 4px; overflow-x: auto; }
+.progress li {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  font-size: 14px;
+  color: var(--grey);
+  border-bottom: 3px solid var(--line);
+  white-space: nowrap;
+}
+.progress li.active { color: var(--text); font-weight: bold; border-color: var(--blue); }
+.progress li.done   { color: var(--green); border-color: var(--green); }
+ 
+/* ---------- 6. Etapes : une seule visible a la fois ---------- */
+.step { display: none; }
+.step.visible { display: block; }
+ 
+/* ---------- 7. Etape 1 : le discours ---------- */
+.speech {
+  margin: 20px 0;
+  padding-left: 16px;
+  border-left: 4px solid var(--red);
+  font-size: 18px;
+}
+.speech cite { display: block; margin-top: 8px; font-size: 14px; color: var(--grey); }
+ 
+/* ---------- 8. Boutons ---------- */
+.btn {
+  background: var(--blue);
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.btn:hover { opacity: 0.9; }
+.btn-outline { background: transparent; color: var(--text); border: 1px solid var(--line); }
+.btn-light { background: transparent; color: white; border: 1px solid white; border-radius: 99px; padding: 8px 14px; cursor: pointer; }
+.buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+ 
+/* ---------- 9. Etape 2 : formulaire ---------- */
+label { display: block; font-weight: bold; margin-top: 14px; }
+input[type="text"], input[type="email"], input[type="password"] {
+  width: 100%; max-width: 360px;
+  padding: 10px; font-size: 16px;
+  border: 1px solid var(--line); border-radius: 8px;
+}
+.error { color: var(--red); font-weight: bold; font-size: 15px; min-height: 22px; }
+.hint { background: #e6f2fb; border-left: 4px solid var(--blue); border-radius: 6px; padding: 8px 12px; font-size: 14px; }
+ 
+/* ---------- 10. Etape 3 : bulletin ---------- */
+fieldset { border: 0; padding: 0; margin: 0 0 20px; }
+legend { font-size: 20px; font-weight: bold; margin-bottom: 8px; }
+.option {
+  display: flex; align-items: center; gap: 10px;
+  border: 1px solid var(--line); border-radius: 10px;
+  padding: 12px; margin: 0 0 8px;
+  font-weight: normal; cursor: pointer;
+}
+ 
+/* ---------- 11. Etape 4 : recapitulatif ---------- */
+.review { list-style: none; padding: 0; }
+.review li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+ 
+/* ---------- 12. Etape 5 : recu ---------- */
+.receipt {
+  display: inline-block;
+  font-family: monospace; font-size: 26px; letter-spacing: 3px;
+  border: 2px dashed var(--blue); border-radius: 8px; padding: 12px 18px;
+}
+ 
+/* ---------- 13. Admin ---------- */
+.status-open { color: var(--green); }
+.status-closed { color: var(--red); }
+.stats { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0; }
+.stats div { flex: 1; min-width: 120px; border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+.stats strong { display: block; font-size: 24px; }
+.result { margin-bottom: 12px; }
+.bar { height: 12px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.bar div { height: 100%; background: var(--blue); }

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!-- =====================================================
+  BUCOSA - Online Elections (preview)
+  FICHIER 1/3 : index.html = la STRUCTURE (le contenu de la page)
+  Les 2 autres fichiers : style.css (le look) et script.js (le fonctionnement)
+  ===================================================== -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BUCOSA Online Elections</title>
+  <!-- On relie le fichier de design -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+  <!-- ========== EN-TETE (visible sur toutes les pages) ========== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <!-- Bloc "marque" : le logo a gauche, puis le nom a cote -->
+      <div class="brand">
+        <!-- src="logo.png" = le fichier du logo, a mettre dans le MEME dossier que index.html.
+             width/height = taille de securite (32 pixels), meme si le CSS ne charge pas.
+             onerror = si le fichier n'existe pas, on cache l'image (pas d'icone cassee). -->
+        <img src="Bucosa logo.jpeg" alt="BUCOSA logo" class="logo-img" width="32" height="32" onerror="this.style.display='none'">
+        <div>
+          <strong class="logo">BUCOSA</strong>
+          <span>Congolese Students' Association · Bugema University</span>
+        </div>
+      </div>
+      <button id="btn-admin" class="btn-light">Admin view</button>
+    </div>
+  </header>
+ 
+  <main class="container">
+ 
+    <p class="notice">Preview with sample data. No votes are recorded.</p>
+ 
+    <!-- ========== ESPACE ELECTEUR (etapes 1 a 5) ========== -->
+    <div id="voter-area">
+ 
+      <!-- Barre de progression : le JavaScript change la classe "active" -->
+      <ol id="progress" class="progress">
+        <li>1. Welcome</li>
+        <li>2. Verify</li>
+        <li>3. Vote</li>
+        <li>4. Review</li>
+        <li>5. Done</li>
+      </ol>
+ 
+      <!-- ===== ETAPE 1 : ACCUEIL + DISCOURS ===== -->
+      <section class="step card" id="step-1">
+        <h1>BUCOSA Executive Elections</h1>
+        <p>Voting is open to registered BUCOSA members. It takes about two minutes.</p>
+        <blockquote class="speech">
+          Dear BUCOSA members, far from home we have built a family at Bugema.
+          Today your voice decides who will serve it. Every vote carries the same weight,
+          so vote freely, vote once, and choose the people you trust.
+          Whoever wins, we leave this election as one community.
+          <cite>The BUCOSA Election Committee</cite>
+        </blockquote>
+        <!-- data-go="2" = "aller a l'etape 2" (lu par le JavaScript) -->
+        <button class="btn" data-go="2">Start voting</button>
+      </section>
+ 
+      <!-- ===== ETAPE 2 : VERIFICATION ===== -->
+      <section class="step card" id="step-2">
+        <h2>Confirm it's you</h2>
+        <p>Enter your student ID and the access code sent by the election committee.</p>
+ 
+        <!-- INDICE POUR L'APERCU : on explique quoi taper pour pouvoir continuer -->
+        <p class="hint">Preview: type any student ID (at least 4 characters, e.g. <strong>22/BCN/BU/R0009</strong>)
+           any email address (e.g. <strong>name@example.com</strong>) and any access code of at least 6 characters (e.g. <strong>123456</strong>).</p>
+ 
+        <label for="student-id">Student ID</label>
+        <input type="text" id="student-id" placeholder="e.g. 26/BCN/BU/R/0009">
+ 
+        <!-- NOUVEAU CHAMP : l'email. "id" doit etre UNIQUE (jamais le meme id deux fois),
+             car le JavaScript retrouve le champ grace a son id. -->
+        <label for="email">Email address</label>
+        <input type="email" id="email" placeholder="e.g. name@example.com">
+ 
+        <label for="access-code">Access code (at least 6 characters)</label>
+        <!-- type="text" pour VOIR ce qu'on tape pendant l'apercu.
+             Dans la vraie version, on remettra type="password" (points caches). -->
+        <input type="text" id="access-code" placeholder="e.g. 123456" maxlength="12">
+ 
+        <!-- Le JavaScript ecrit ici les messages d'erreur -->
+        <p class="error" id="error-verify"></p>
+ 
+        <div class="buttons">
+          <button class="btn btn-outline" data-go="1">Back</button>
+          <button class="btn" id="btn-verify">Continue to ballot</button>
+        </div>
+      </section>
+ 
+      <!-- ===== ETAPE 3 : BULLETIN DE VOTE ===== -->
+      <section class="step card" id="step-3">
+        <h2>Your ballot</h2>
+        <p>Choose one option for each position.</p>
+ 
+        <!-- Un "fieldset" = un groupe. Les boutons radio qui ont le meme "name"
+             forment un groupe : on ne peut en choisir qu'un seul. -->
+        <fieldset>
+          <legend>President</legend>
+          <label class="option"><input type="radio" name="president" data-name="Patrick Mbuyi"> Patrick Mbuyi</label>
+          <label class="option"><input type="radio" name="president" data-name="Grace Kabeya"> Grace Kabeya</label>
+          <label class="option"><input type="radio" name="president" data-name="Joel Tshimanga"> Joel Tshimanga</label>
+          <label class="option"><input type="radio" name="president" data-name="Abstain"> Abstain</label>
+        </fieldset>
+ 
+        <fieldset>
+          <legend>Vice President</legend>
+          <label class="option"><input type="radio" name="vice" data-name="Esther Mukendi"> Esther Mukendi</label>
+          <label class="option"><input type="radio" name="vice" data-name="David Kalala"> David Kalala</label>
+          <label class="option"><input type="radio" name="vice" data-name="Abstain"> Abstain</label>
+        </fieldset>
+ 
+        <fieldset>
+          <legend>Secretary</legend>
+          <label class="option"><input type="radio" name="secretary" data-name="Ruth Ilunga"> Ruth Ilunga</label>
+          <label class="option"><input type="radio" name="secretary" data-name="Samuel Banza"> Samuel Banza</label>
+          <label class="option"><input type="radio" name="secretary" data-name="Abstain"> Abstain</label>
+        </fieldset>
+ 
+        <p class="error" id="error-ballot"></p>
+        <div class="buttons">
+          <button class="btn btn-outline" data-go="2">Back</button>
+          <button class="btn" id="btn-review">Review my choices</button>
+        </div>
+      </section>
+ 
+      <!-- ===== ETAPE 4 : RECAPITULATIF ===== -->
+      <section class="step card" id="step-4">
+        <h2>Review your vote</h2>
+        <p>You can't change your vote after you submit it.</p>
+        <!-- Le JavaScript remplit cette liste avec les choix -->
+        <ul id="review-list" class="review"></ul>
+        <div class="buttons">
+          <button class="btn btn-outline" data-go="3">Change choices</button>
+          <button class="btn" id="btn-submit">Submit my vote</button>
+        </div>
+      </section>
+ 
+      <!-- ===== ETAPE 5 : CONFIRMATION + RECU ===== -->
+      <section class="step card" id="step-5">
+        <h2>Vote submitted</h2>
+        <p>Thank you for voting. Keep this receipt number to confirm your vote was counted.
+           It does not show who you voted for.</p>
+        <p class="receipt" id="receipt"></p>
+        <button class="btn btn-outline" id="btn-restart">Restart preview</button>
+      </section>
+ 
+    </div>
+ 
+    <!-- ========== ESPACE ADMIN (cache au depart) ========== -->
+    <div id="admin-area" class="card hidden">
+      <h2>Election dashboard</h2>
+      <p>Polls: <strong id="polls-state" class="status-open">Open</strong></p>
+ 
+      <div class="stats">
+        <div><strong>214</strong> Registered voters</div>
+        <div><strong>168</strong> Votes cast</div>
+        <div><strong>79%</strong> Turnout</div>
+      </div>
+ 
+      <h3>Live results: President</h3>
+      <!-- La largeur de chaque barre (width) = le pourcentage -->
+      <div class="result"><span>Patrick Mbuyi · 49%</span><div class="bar"><div style="width:49%"></div></div></div>
+      <div class="result"><span>Grace Kabeya · 32%</span><div class="bar"><div style="width:32%"></div></div></div>
+      <div class="result"><span>Joel Tshimanga · 19%</span><div class="bar"><div style="width:19%"></div></div></div>
+ 
+      <button class="btn" id="btn-polls">Close polls</button>
+    </div>
+ 
+  </main>
+ 
+  <!-- On relie le fichier de fonctionnement, a la FIN de la page -->
+  <script src="script.js"></script>
+</body>
+</html>
